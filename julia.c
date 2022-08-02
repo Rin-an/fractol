@@ -6,7 +6,7 @@
 /*   By: ssadiki <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 16:37:18 by ssadiki           #+#    #+#             */
-/*   Updated: 2022/08/02 15:06:06 by ssadiki          ###   ########.fr       */
+/*   Updated: 2022/08/02 15:53:21 by ssadiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	render_julia(t_data *data)
 	if (!data->win_ptr)
 		return (1);
 	julia(&data->img, data);
-//	mlx_mouse_hook(data->win_ptr, &trigger_motion, data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->img.mlx_img, 0, 0);
 	return (0);
