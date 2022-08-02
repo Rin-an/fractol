@@ -6,7 +6,7 @@
 /*   By: ssadiki <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 15:48:57 by ssadiki           #+#    #+#             */
-/*   Updated: 2022/07/31 18:33:00 by ssadiki          ###   ########.fr       */
+/*   Updated: 2022/08/02 14:57:08 by ssadiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,15 @@ int	zoom(int button, int x, int y, t_data *data)
 		data->min_im *= 1.25;
 		data->max_im *= 1.25;
 	}
-	if (button == 5)
+	else if (button == 5)
 	{
 		data->min_re /= 1.25;
 		data->max_re /= 1.25;
 		data->min_im /= 1.25;
 		data->max_im /= 1.25;
 	}
+	else if (button == 1)
+		trigger_motion(data);
 	return (0);
 }
 

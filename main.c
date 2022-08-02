@@ -6,13 +6,12 @@
 /*   By: ssadiki <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 14:52:13 by ssadiki           #+#    #+#             */
-/*   Updated: 2022/07/31 18:30:56 by ssadiki          ###   ########.fr       */
+/*   Updated: 2022/08/01 15:04:07 by ssadiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-// Testing key events (and getting keycodes while at it)
 void	manage_mandelbrot(t_data *data)
 {
 	mlx_loop_hook(data->mlx_ptr, &render_mandelbrot, data);
@@ -22,6 +21,7 @@ void	manage_julia(t_data *data)
 {
 	data->x = 0;
 	data->y = 0;
+	data->flag = 0;
 	mlx_loop_hook(data->mlx_ptr, &render_julia, data);
 }
 

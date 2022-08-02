@@ -6,7 +6,7 @@
 /*   By: ssadiki <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 16:37:18 by ssadiki           #+#    #+#             */
-/*   Updated: 2022/07/31 17:35:55 by ssadiki          ###   ########.fr       */
+/*   Updated: 2022/07/31 19:51:02 by ssadiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	render_mandelbrot(t_data *data)
 	if (!data->win_ptr)
 		return (1);
 	mandelbrot(&data->img, data);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+		data->img.mlx_img, 0, 0);
 	return (0);
 }
 
@@ -40,7 +41,7 @@ int	mandelbrot(t_img *img, t_data *data)
 			man.z_re = man.c_re;
 			man.z_im = man.c_im;
 			in.i = -1;
-			while (++in.i < ITER && (man.z_re * man.z_re 
+			while (++in.i < ITER && (man.z_re * man.z_re
 					+ man.z_im * man.z_im < 4))
 			{
 				tmp = man.z_re * man.z_re - man.z_im * man.z_im;
