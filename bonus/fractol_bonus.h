@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   fractol_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssadiki <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 19:45:22 by ssadiki           #+#    #+#             */
-/*   Updated: 2022/08/02 00:30:58 by ssadiki          ###   ########.fr       */
+/*   Updated: 2022/08/29 16:00:52 by ssadiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#ifndef FRACTOL_BONUS_H
+# define FRACTOL_BONUS_H
 # include <mlx.h>
 # include <math.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
-# define ITER 500
 
 //STRCUTURES
 typedef struct s_img{
@@ -38,8 +37,11 @@ typedef struct s_data{
 	double		max_re;
 	double		min_im;
 	double		max_im;
+	double		re_factor;
+	double		im_factor;
 	double		x;
 	double		y;
+	int			iter;
 	t_img		img;
 }	t_data;
 
@@ -64,7 +66,7 @@ int		julia(t_img *img, t_data *data);
 int		render_julia(t_data *data);
 //VISUALS
 void	img_pix_put(t_img *img, int x, int y, int color);
-void	color(t_img *img, t_index in);
+void	color(t_data *data, t_img *img, t_index in, t_fract *fract);
 //HOOKS
 int		trigger_motion(t_data *data);
 int		move_julia(int x, int y, t_data *data);
@@ -76,4 +78,5 @@ void	exec_hooks(t_data *data);
 void	ft_putstr(char *str);
 int		ft_strcmp(char *s1, char *s2);
 void	init_data(t_data *data);
+void	iter_change(int button, t_data *data);
 #endif
