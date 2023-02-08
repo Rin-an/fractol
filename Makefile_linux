@@ -14,9 +14,9 @@ FLAGS = -Werror -Wextra -Wall
 $(NAME_M): $(M_OBJS) $(HEADER_M)
 	gcc $(M_OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME_M)
 $(NAME_B): $(B_OBJS) $(HEADER_B)
-	gcc $(B_OBJS) -I/usr/include -Imlx_linux -O3  -o $(NAME_B)
+	gcc $(B_OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME_B)
 %.o : %.c
-	gcc $(FLAGS) -Imlx -c $< -o $@
+	gcc $(FLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 
 all : $(NAME_M) $(NAME_B)
