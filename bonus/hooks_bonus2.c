@@ -6,7 +6,7 @@
 /*   By: ssadiki <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 22:24:38 by ssadiki           #+#    #+#             */
-/*   Updated: 2022/10/31 21:49:29 by ssadiki          ###   ########.fr       */
+/*   Updated: 2023/02/08 18:24:50 by ssadiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	change_color(t_data *data)
 		c++;
 }
 
-void	iter_change(int button, t_data *data)
+/*void	iter_change(int button, t_data *data)
 {
 	if (button == 4)
 	{
@@ -38,7 +38,7 @@ void	iter_change(int button, t_data *data)
 	}
 	else if (button == 5)
 		data->iter += 5;
-}
+}*/
 
 void	left_click(t_data *data)
 {
