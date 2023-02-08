@@ -6,7 +6,7 @@
 /*   By: ssadiki <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 19:45:22 by ssadiki           #+#    #+#             */
-/*   Updated: 2022/09/02 15:11:45 by ssadiki          ###   ########.fr       */
+/*   Updated: 2022/10/31 17:02:46 by ssadiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,10 @@ int		julia(t_img *img, t_data *data);
 int		render_julia(t_data *data);
 //VISUALS
 void	img_pix_put(t_img *img, int x, int y, int color);
-void	color(t_data *data, t_img *img, t_index in, t_fract *fract);
 //HOOKS
 int		trigger_motion(t_data *data);
 void	left_click(t_data *data);
 int		move_julia(int x, int y, t_data *data);
-int		zoom(int button, int x, int y, t_data *data);
-int		exit_keypress(int keycode, t_data *data);
-int		exit_button(t_data *data);
 void	exec_hooks(t_data *data);
 //UTILS
 void	ft_putstr(char *str);

@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   burning_ship_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssadiki <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/21 16:37:18 by ssadiki           #+#    #+#             */
-/*   Updated: 2022/10/31 16:59:15 by ssadiki          ###   ########.fr       */
+/*   Created: 2022/10/30 21:36:54 by ssadiki           #+#    #+#             */
+/*   Updated: 2022/11/01 03:55:00 by ssadiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractol_bonus.h"
 
-int	render_mandelbrot(t_data *data)
+int	render_ship(t_data *data)
 {
 	if (!data->win_ptr)
 		return (1);
 	data->re_factor = (data->max_re - data->min_re) / (data->win_width);
 	data->im_factor = (data->max_im - data->min_im) / (data->win_height);
-	mandelbrot(&data->img, data);
+	burning_ship(&data->img, data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->img.mlx_img, 0, 0);
 	mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
@@ -27,42 +27,41 @@ int	render_mandelbrot(t_data *data)
 	return (0);
 }
 
-void	color_man(t_data *data, t_img *img, t_index in, t_fract *fract)
+void	color_ship(t_data *data, t_img *img, t_index in, t_fract *sh)
 {
-	double	tmp;
+	t_fract	tmp;
 
-	while (++in.i < data->iter && (fract->z_re * fract->z_re
-			+ fract->z_im * fract->z_im < 4))
+	sh->z_re = 0;
+	sh->z_im = 0;
+	while (++in.i < data->iter && (sh->z_re * sh->z_re
+			+ sh->z_im * sh->z_im < 4))
 	{
-		tmp = fract->z_re * fract->z_re - fract->z_im * fract->z_im;
-		fract->z_im = (2 * fract->z_im * fract->z_re) + fract->c_im;
-		fract->z_re = tmp + fract->c_re;
+		tmp.z_re = fabs(sh->z_re * sh->z_re - sh->z_im * sh->z_im + sh->c_re);
+		tmp.z_im = fabs((2 * sh->z_im * sh->z_re) + sh->c_im);
+		sh->z_re = tmp.z_re;
+		sh->z_im = tmp.z_im;
 	}
 	if (in.i == data->iter)
-		img_pix_put(img, in.x, in.y, 0x000000);
+		img_pix_put(img, data->x, data->y, 0x000000);
 	else
-		img_pix_put(img, in.x, in.y, 0xF0F8FF * in.i);
-	fract->z_re = fract->c_re;
-	fract->z_im = fract->c_im;
+		img_pix_put(img, in.x, in.y, data->iro * in.i);
 }
 
-int	mandelbrot(t_img *img, t_data *data)
+int	burning_ship(t_img *img, t_data *data)
 {
-	t_fract	man;
+	t_fract	sh;
 	t_index	in;
 
-	man.z_re = 0;
-	man.z_im = 0;
 	in.y = -1;
 	while (++in.y < data->win_height)
 	{
-		man.c_im = data->min_im + in.y * data->im_factor;
+		sh.c_im = data->min_im + (in.y * data->im_factor);
 		in.x = -1;
 		while (++in.x < data->win_width)
 		{
-			man.c_re = data->min_re + (in.x * data->re_factor);
 			in.i = -1;
-			color_man(data, img, in, &man);
+			sh.c_re = data->min_re + (in.x * data->re_factor);
+			color_ship(data, img, in, &sh);
 		}
 	}
 	return (0);

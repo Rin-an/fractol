@@ -6,7 +6,7 @@
 /*   By: ssadiki <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 16:37:18 by ssadiki           #+#    #+#             */
-/*   Updated: 2022/08/29 15:50:30 by ssadiki          ###   ########.fr       */
+/*   Updated: 2022/11/01 03:51:35 by ssadiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int	move_julia(int x, int y, t_data *data)
 {
-	if (data->flag == 1)
-		return (0);
-	if ((x >= 0 && x <= data->win_width) && (y >= 0 && y <= data->win_width))
+	if ((x >= 0 && x <= data->win_width) && (y >= 0 && y <= data->win_width)
+		&& data->flag == 1)
 	{
 		data->x = data->min_re + x
 			* (data->max_re - data->min_re) / (data->win_width);
@@ -30,13 +29,7 @@ int	trigger_motion(t_data *data)
 {
 	if (!data->win_ptr)
 		return (1);
-	if (data->flag == 0)
-	{
-		mlx_hook(data->win_ptr, 6, 0, &move_julia, data);
-		data->flag = 1;
-	}
-	else
-		data->flag = 0;
+	mlx_hook(data->win_ptr, 6, 0, &move_julia, data);
 	return (0);
 }
 
@@ -55,6 +48,23 @@ int	render_julia(t_data *data)
 	return (0);
 }
 
+void	color_jul(t_data *data, t_img *img, t_index in, t_fract *fract)
+{
+	double	tmp;
+
+	while (++in.i < data->iter && (fract->z_re * fract->z_re
+			+ fract->z_im * fract->z_im < 4))
+	{
+		tmp = fract->z_re * fract->z_re - fract->z_im * fract->z_im;
+		fract->z_im = (2 * fract->z_im * fract->z_re) + fract->c_im;
+		fract->z_re = tmp + fract->c_re;
+	}
+	if (in.i == data->iter)
+		img_pix_put(img, in.x, in.y, 0x000000);
+	else
+		img_pix_put(img, in.x, in.y, data->iro * in.i);
+}
+
 int	julia(t_img *img, t_data *data)
 {
 	t_fract	jul;
@@ -71,7 +81,7 @@ int	julia(t_img *img, t_data *data)
 			jul.z_re = data->min_re + (in.x * data->re_factor);
 			jul.z_im = data->min_im + (in.y * data->im_factor);
 			in.i = -1;
-			color(data, img, in, &jul);
+			color_jul(data, img, in, &jul);
 		}
 	}
 	return (0);

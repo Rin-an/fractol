@@ -6,7 +6,7 @@
 /*   By: ssadiki <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 13:54:38 by ssadiki           #+#    #+#             */
-/*   Updated: 2022/08/27 12:49:20 by ssadiki          ###   ########.fr       */
+/*   Updated: 2022/10/31 21:04:55 by ssadiki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,6 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-void	color(t_data *data, t_img *img, t_index in, t_fract *fract)
-{
-	double	tmp;
-
-	while (++in.i < data->iter && (fract->z_re * fract->z_re
-			+ fract->z_im * fract->z_im < 4))
-	{
-		tmp = fract->z_re * fract->z_re - fract->z_im * fract->z_im;
-		fract->z_im = (2 * fract->z_im * fract->z_re) + fract->c_im;
-		fract->z_re = tmp + fract->c_re;
-	}
-	if (in.i == data->iter)
-		img_pix_put(img, in.x, in.y, 0x000000);
-	else
-		img_pix_put(img, in.x, in.y, 0xF0F8FF * in.i);
-}
-
 void	init_data(t_data *data)
 {
 	data->mlx_ptr = mlx_init();
@@ -83,4 +66,15 @@ void	init_data(t_data *data)
 	data->min_im = -2.0;
 	data->max_im = 2.0;
 	data->iter = 100;
+}
+
+void	left_click(t_data *data)
+{
+	if (data->flag == 0)
+	{
+		data->flag = 1;
+		trigger_motion(data);
+	}
+	else
+		data->flag = 0;
 }
